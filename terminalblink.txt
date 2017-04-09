@@ -1,0 +1,3 @@
+ubuntuのカーソルの点滅をなくす
+gconftool-2 --set /apps/gnome-terminal/profiles/Default/cursor_blink_mode --type string off
+offをonにすれば点滅するようになる
