@@ -1,0 +1,30 @@
+[[plugins]]
+repo = 'Shougo/dein.vim'
+
+[[plugins]]
+repo = 'nelstrom/vim-visual-star-search'
+
+[[plugins]]
+repo = 'nathanaelkane/vim-indent-guides'
+hook_add='''
+let g:indent_guides_auto_colors = 0
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=darkgray   ctermbg=101
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=lightgray ctermbg=102
+let g:indent_guides_guide_size = 1
+let g:indent_guides_start_level = 2
+'''
+[[plugins]]
+repo = 'Shougo/unite.vim'
+
+[[plugins]]
+repo = 'Shougo/vimfiler.vim'
+
+[[plugins]]
+repo = 'Shougo/vimproc.vim'
+build = 'make'
+
+[[plugins]]
+repo= 'majutsushi/tagbar'
+
+[[plugins]]
+repo='romainl/Apprentice'

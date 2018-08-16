@@ -1,0 +1,100 @@
+[[plugins]]
+repo = 'kazuph/previm'
+on_ft=['markdown']
+rev = 'feature/add-plantuml-plugin'
+hook_add = '''
+    autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
+'''
+
+[[plugins]]
+repo = 'tyru/open-browser.vim'
+on_ft=['markdown']
+
+[[plugins]]
+repo = 'Shougo/neocomplete.vim'
+on_i  = 1
+hook_add = '''
+let g:acp_enableAtStartup = 0
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+let g:neocomplete#disable_auto_complete = 0
+" Plugin key-mappings.
+inoremap <expr><C-g>     neocomplete#undo_completion()
+inoremap <expr><C-l>     neocomplete#complete_common_string()
+
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  " return neocomplete#close_popup() . "\<CR>"
+  " For no inserting <CR> key.
+  return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+endfunction
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y>  neocomplete#close_popup()
+inoremap <expr><C-e>  neocomplete#cancel_popup()
+
+" Close popup by <Space>.
+inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
+"-----------------------------------------------------------
+
+" autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+noremap <F2> :VimFiler -split -simple -winwidth=45 -no-quit<CR>
+noremap <F8> :TagbarToggle<CR>
+noremap <F9> :TagbarShowTag<CR>
+
+" autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+if !exists('g:neocomplete#force_omni_input_patterns')
+        let g:neocomplete#force_omni_input_patterns = {}
+endif
+
+" let g:neocomplete#force_omni_input_patterns.python = '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
+let g:neocomplete#force_omni_input_patterns.python = '\h\w*\|[^. \t]\.\w*'
+'''
+
+[[plugins]]
+repo = 'ujihisa/neco-look'
+on_i = 1
+hook_add = '''
+if !exists('g:neocomplete#text_mode_filetypes')
+    let g:neocomplete#text_mode_filetypes = {}
+endif
+let g:neocomplete#text_mode_filetypes = {
+            \ 'rst': 1,
+            \ 'markdown': 1,
+            \ 'gitrebase': 1,
+            \ 'gitcommit': 1,
+            \ 'vcs-commit': 1,
+            \ 'hybrid': 1,
+            \ 'text': 1,
+            \ 'help': 1,
+            \ 'tex': 1,
+            \ 'python': 1,
+            \ }
+'''
+
+[[plugins]]
+repo = 'davidhalter/jedi-vim'
+on_ft= ['python']
+hook_add = '''
+    let g:jedi#use_tabs_not_buffers = 1 
+    let g:jedi#popup_select_first=0 
+    let g:jedi#popup_on_dot=1
+    let g:jedi#goto_command = "<leader>d"
+    let g:jedi#goto_assignments_command = "<leader>g"
+    let g:jedi#goto_definitions_command = ""
+    let g:jedi#documentation_command = "K"
+    let g:jedi#usages_command = "<leader>n"
+    let g:jedi#rename_command = "<leader>R"
+    let g:jedi#show_call_signatures = "0"
+    autocmd FileType python setlocal completeopt-=preview 
+'''
